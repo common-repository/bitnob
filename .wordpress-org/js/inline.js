@@ -22,18 +22,18 @@ function buildUrl(urlBase, data){
 }
 
 function buildFetchData({ method, data }) {
-  var fetchData = {
-    method,
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  };
-  if (data) fetchData.body = JSON.stringify(data);
-  return fetchData;
+var fetchData = {
+  method,
+  cache: "no-cache",
+  credentials: "same-origin",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  redirect: "follow",
+  referrerPolicy: "no-referrer",
+};
+if (data) fetchData.body = JSON.stringify(data);
+return fetchData;
 }
 
 function convertToSatoshis(amount, currency, environment) {
@@ -41,7 +41,7 @@ function convertToSatoshis(amount, currency, environment) {
 
   let url = getUrlBase(environment) + "api/v1/rates/convert-currency/";
 
-  data = { conversion: conversion, amount: parseFloat(amount) };
+  data = { conversion: conversion, amount: amount };
   conversion = `${currency.toUpperCase()}_SAT`;
   return fetch(url, buildFetchData({ data, method: "POST" }));
 }
